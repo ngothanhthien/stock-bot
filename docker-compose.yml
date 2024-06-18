@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  discord-bot:
+    image: discord-bot-stock
+    build: .
+    ports:
+      - "6000:6000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
