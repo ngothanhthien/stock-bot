@@ -39,8 +39,12 @@ export async function getAccessToken(username) {
     console.log('getAccessToken ', username)
   }
   const record = await VpAuthSession.findByPk(username)
+  if (!record || !record.access_token || !record.key) {
+    return null
+  }
+
   const expiredAt = record.expired_at
-  if (!record || !record.access_token || !record.key || isExpired(expiredAt)) {
+  if (isExpired(expiredAt)) {
     return null
   }
   return decrypt({

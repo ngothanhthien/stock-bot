@@ -1,12 +1,20 @@
 import axios from 'axios'
-import { VP_USERNAME, VP_PASSWORD, DEBUG } from '../configs/general.js'
+import { DEBUG } from '../configs/general.js'
 import '../types/index.js'
 import { getAccessToken, getAccountId } from './index.js'
 import { now } from '../helpers/time.js'
 import { handleError } from './error.js'
+import { decrypt } from '../helpers/index.js'
+import dotenv from 'dotenv'
+dotenv.config()
+
+const VP_USERNAME = process.env.VP_USERNAME
+const VP_PASSWORD = decrypt({
+  iv: process.env.VP_PASSWORD_KEY,
+  encryptedData: process.env.VP_PASSWORD
+})
 
 const BASE_URL = 'https://external.vpbanks.com.vn'
-
 /**
  *
  * @returns {Promise<{accessToken: string, expiredAt: number}>}
@@ -203,6 +211,8 @@ function formatPrice(price) {
 }
 
 export {
+  VP_USERNAME,
+
   fetchDirection,
   fetchWatchList,
   fetchOwnList,

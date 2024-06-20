@@ -14,14 +14,13 @@ import {
   fetchAccountId,
   fetchChartLine,
   fetchDirection,
-  fetchWatchList
+  fetchWatchList, VP_USERNAME
 } from './vps-client.js'
 import {
   DEBUG,
   DISCORD_STOCK_LOG_WEBHOOK,
   DISCORD_TEST_LOG_WEBHOOK,
   SUMMARY_TITLE,
-  VP_USERNAME
 } from '../configs/general.js'
 import { getOwnStocks, getStocks, Stock } from '../models/Stock.js'
 import { isExpired } from '../helpers/index.js'

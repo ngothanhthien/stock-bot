@@ -1,28 +1,25 @@
+import { DateTime } from 'luxon'
+import { TIMEZONE } from '../configs/general.js'
+
 /**
- *
+ * Returns the current Unix timestamp in seconds.
  * @returns {number}
  */
 function now() {
-  return Math.floor(Date.now() / 1000)
+  return DateTime.now().setZone(TIMEZONE).toSeconds()
 }
 
 /**
- *
- * @param {number} day
+ * Returns the Unix timestamp for the end of the specified day from now.
+ * @param {number} days - Number of days from now
  * @returns {number}
  */
-function lastTimeOfNDay(day) {
-  let now = new Date()
-  let endOfDay = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + day,
-    23,
-    59,
-    59,
-    999
-  )
-  return endOfDay.getTime()
+function lastTimeOfNDay(days) {
+  const endOfDay = DateTime.now().setZone(TIMEZONE).plus({ days }).endOf('day', {})
+  return endOfDay.toSeconds()
 }
 
-export { now, lastTimeOfNDay }
+export {
+  now,
+  lastTimeOfNDay
+}

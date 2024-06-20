@@ -1,10 +1,14 @@
 import { Client, Events, GatewayIntentBits, REST, Routes } from 'discord.js'
-import {
-  DISCORD_BOT_ID,
-  DISCORD_BOT_TOKEN,
-  DISCORD_GUILD_ID
-} from '../configs/general.js'
 import commandMap from '../commands/index.js'
+import { decrypt } from '../helpers/index.js'
+import dotenv from 'dotenv'
+dotenv.config()
+const DISCORD_BOT_ID = process.env.DISCORD_BOT_ID
+const DISCORD_GUILD_ID = process.env.DISCORD_GUILD_ID
+const DISCORD_BOT_TOKEN = decrypt({
+  iv: process.env.DISCORD_BOT_KEY,
+  encryptedData: process.env.DISCORD_BOT_TOKEN
+})
 
 const client = new Client({
   intents: [
